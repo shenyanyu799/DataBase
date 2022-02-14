@@ -1,18 +1,24 @@
 ﻿## 介绍
-    这是一个能凑合着用的，本地数据管理系统
-    能够自动分配存储空间，并允许序列化检索数据
-    该程序适合用于应用存档。
-    不同程序同时往一个文件内写入长度类似数据时可能出现问题，可以规避。
+    这是一个简易的、能凑合着用的，本地数据管理程序，
+    能够自动分配存储空间，并允许序列化检索数据，
+    该程序适合用于应用存档，
+    不同进程同时往一个文件内写入长度类似数据时可能出现问题，可以规避。
 
 ## 基本功能
 1. 基于本地的数据序列化管理，实现类似数据库的功能
 2. 能够快速查找数据、存储数据、增删数据
-3. 实现多进程的同步、异步调用
-Actuator:
-    byte[] Get(string key)
-    void Set(string key, byte[] data)
-    Datas GetDatas()
-    void Clear()
+3. 实现多线程的同步、异步调用
++ DataList:
+    - bool AllowRepeat { get; set; } => false允许存在同名key;true覆盖key
+    - byte[] Read(string path, string key) => 读取key指向数据，如果key不存在返回null
+    - string ReadText(string path, string key)
+    - bool Write(string path, string key, byte[] data) => 写入key和data,如果AllowRepeat = true,则会检查key是否存在，并覆盖数据。
+    - bool WriteText(string path, string key, string text)
+    - int GetCount(string path) => 获取数据条目数量
+    - void Remove(string path, string key) => 移除指定key
+    - bool Contains(string path, string key) => 判断key是否存在
+    - void Clear(string path) => 清除数据
+    - string[] GetKeys(string path) => 获取所有key
 
 ## 设计思路
 
