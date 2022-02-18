@@ -247,13 +247,18 @@ namespace DataBase
             if (args.Length == 1)
             {
                 Console.WriteLine("number of key is " + DataList.GetCount(path));
-                Console.WriteLine("get<key>   set<key,value>   remove<key>   clear   keys");
+                Console.WriteLine("get<key>   set<key,value>   remove<key>   clear   delete   keys");
             }
             if (args.Length >= 2)
             {
                 if (args[1] == "clear")
                 {
                     DataList.Clear(path);
+                    return;
+                }
+                if (args[1] == "delete")
+                {
+                    File.Delete(path);
                     return;
                 }
                 if (args[1] == "keys")
