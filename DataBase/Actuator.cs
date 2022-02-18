@@ -5,7 +5,6 @@ namespace DataBase
 
     public class Actuator
     {
-        
         private string fpath;
         private FileMode fmode;
         private FileAccess faccess;

@@ -231,15 +231,23 @@ namespace DataBase
         static void Main(string[] args)
         {
             //args = new string[] { "abc.d" };
-            if (args.Length == 0) return;
-            string path = Path.GetFullPath(args[0]);
-
+            if (args.Length == 0)
+            {
+                if (!Directory.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "data")) return;
+                DirectoryInfo directoryInfo = new DirectoryInfo(System.AppDomain.CurrentDomain.BaseDirectory + "data");
+                int i = 0;
+                foreach (FileInfo file in directoryInfo.GetFiles())
+                {
+                    Console.WriteLine(++i + ". " + file.Name);
+                }
+                return;
+            }
+            string path = System.AppDomain.CurrentDomain.BaseDirectory + "data" + Path.DirectorySeparatorChar + args[0];
             DataList.AllowRepeat = true;
             if (args.Length == 1)
             {
                 Console.WriteLine("number of key is " + DataList.GetCount(path));
                 Console.WriteLine("get<key>   set<key,value>   remove<key>   clear   keys");
-
             }
             if (args.Length >= 2)
             {
